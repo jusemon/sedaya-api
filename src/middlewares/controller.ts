@@ -34,33 +34,29 @@ const controllerMiddleware =
       req,
       res,
       () => {
+        const log = logger(config);
         Promise.resolve(controller(req as ValidatedRequest, res))
           .then(() => next())
           .catch((error) => {
+            const errorMap = (details: any) => ({
+              name: error.name,
+              message: error.message,
+              details: details,
+            });
+            let mappedError;
             if (error instanceof AppError) {
-              res.status(error.status).json({
-                name: error.name,
-                message: error.message,
-                parent: error.parent,
-              });
+              mappedError = errorMap(error.parent);
+              res.status(error.status).json(mappedError);
             } else if (error instanceof ValidationError) {
-              res.status(HttpStatusCode.NOT_ACCEPTABLE).json(
-                [error].map((error) => ({
-                  name: error.name,
-                  message: error.message,
-                  details: error.details,
-                }))
-              );
+              mappedError = errorMap(error.details);
+              res.status(HttpStatusCode.NOT_ACCEPTABLE).json(mappedError);
             } else {
-              const log = logger(config);
-              const detail = {
-                name: error.name,
-                message: error.message,
-                stack: error.stack,
-              };
-              log.error(detail);
-              res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(detail);
+              mappedError = errorMap(error.stack);
+              res
+                .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
+                .json(mappedError);
             }
+            log.error(mappedError);
             return;
           });
       }

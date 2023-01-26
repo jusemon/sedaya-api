@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import { Response } from '../common';
 import { RoleResponse } from './role';
 
 export type PostUserRequest = {
@@ -25,8 +24,6 @@ export type UserResponse = {
   createOn: Date;
   updateOn?: Date;
 };
-
-export type UserResponseBody = Response<UserResponse>;
 
 export const baseUserRequestSchema = Joi.object<
   PostUserRequest | PutUserRequest

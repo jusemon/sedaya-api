@@ -1,0 +1,94 @@
+users:
+  user-id: &user-id
+    name: id
+    type: number
+    description: The user identifier
+    in: path
+    required: true
+  user-request-post-schema: &user-request-post-schema
+    type: object
+    properties:
+      name:
+        type:  string
+        description: The username
+      firstName:
+        type:  string
+        description: The first name
+      lastName:
+        type:  string
+        description: The last name
+      email:
+        type:  string
+        description: The email
+      roleId:
+        type:  number
+        description: Role identifier
+  user-request-put-schema: &user-request-put-schema
+    type: object
+    properties:
+      id:
+        type: number
+        description: Identifier
+      name:
+        type:  string
+        description: The username
+      firstName:
+        type:  string
+        description: The first name
+      lastName:
+        type:  string
+        description: The last name
+      email:
+        type:  string
+        description: The email
+      roleId:
+        type:  number
+        description: Role identifier
+  user-response-schema: &user-response-schema
+    type: object
+    properties:
+      id:
+        type: number
+        description: Identifier
+      name:
+        type:  string
+        description: The username
+      firstName:
+        type:  string
+        description: The first name
+      lastName:
+        type:  string
+        description: The last name
+      email:
+        type:  string
+        description: The email
+      roleId:
+        type:  number
+        description: Role identifier
+      role: 
+        type: object
+        description: Role
+        schema: *role-response-schema
+      createOn:
+        type: string
+        format: date-time
+        description: Creation date
+      updateOn:
+        type: string
+        format: date-time
+        description: Last update date
+  user-response-list-schema: &user-response-list-schema
+    type: object
+    properties:
+      data:
+        type: array
+        items: *user-response-schema
+      page: 
+        type: number
+        description: Page number, starts at 0
+      pageSize:
+        type: number
+        description: Number of elements per page
+      totalElements:
+        type: number
+        description: Total number of elements

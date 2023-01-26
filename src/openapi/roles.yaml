@@ -1,0 +1,63 @@
+roles:
+  role-id: &role-id
+    name: id
+    type: number
+    description: The role identifier
+    in: path
+    required: true
+  role-request-post-schema: &role-request-post-schema
+    type: object
+    properties:
+      name:
+        type: string
+        description: Role name
+      isAdmin:
+        type: boolean
+        description: Indicates if the role is admin or not
+  role-request-put-schema: &role-request-put-schema
+    type: object
+    properties:
+      id:
+        type: number
+        description: Identifier
+      name:
+        type: string
+        description: Role name
+      isAdmin:
+        type: boolean
+        description: Indicates if the role is admin or not
+  role-response-schema: &role-response-schema
+    type: object
+    properties:
+      id:
+        type: number
+        description: Identifier
+      name:
+        type: string
+        description: Role name
+      isAdmin:
+        type: boolean
+        description: Indicates if the role is admin or not
+      createOn:
+        type: string
+        format: date-time
+        description: Creation date
+      updateOn:
+        type: string
+        format: date-time
+        description: Last update date
+  role-response-list-schema: &role-response-list-schema
+    type: object
+    properties:
+      data:
+        type: array
+        items: *role-response-schema
+      page: 
+        type: number
+        description: Page number, starts at 0
+      pageSize:
+        type: number
+        description: Number of elements per page
+      totalElements:
+        type: number
+        description: Total number of elements

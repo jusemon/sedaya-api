@@ -1,0 +1,14 @@
+common:
+  filter-request-params-schema: &filter-request-params-schema
+  - name: page
+    in: path
+    type: number
+    description: Page number, default is 0
+  - name: pageSize
+    in: path
+    type: number
+    description: Number of elements per page
+  - name: filter
+    in: path
+    type: string
+    description: Filter string, it commontly search in all columns but id

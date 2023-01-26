@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import { Response } from '../common';
 
 export type PostRoleRequest = {
   name: string;
@@ -17,8 +16,6 @@ export type RoleResponse = {
   createOn: Date;
   updateOn?: Date;
 };
-
-export type RoleResponseBody = Response<RoleResponse>;
 
 export const baseRoleRequestSchema = Joi.object<
   PostRoleRequest | PutRoleRequest

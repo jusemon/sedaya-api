@@ -5,7 +5,7 @@ const envSchema = joi
   .object({
     PORT: joi.number().default(3000),
     API_VERSION: joi.number().default(1),
-    ALLOWED_ORIGINS: joi.string().default('http://localhost:3000')
+    ALLOWED_ORIGINS: joi.string().default('http://localhost:3000'),
   })
   .unknown()
   .required();
@@ -18,5 +18,5 @@ if (error) {
 export const server: ServerConfig = {
   port: envVars.PORT,
   apiVersion: envVars.API_VERSION,
-  origins: envVars.ALLOWED_ORIGINS.split(',')
+  origins: envVars.ALLOWED_ORIGINS.split(','),
 };

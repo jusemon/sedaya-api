@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import config from '../config';
-import controllerMw from '../middlewares/controller';
+import controller from '../middlewares/controller';
 import { ValidatedRequest } from '../middlewares/validation';
 import {
   FilterRequestParams,
@@ -18,10 +18,10 @@ const router = Router();
 
 router.post(
   '/',
-  controllerMw({
+  controller({
     config,
     bodySchema: postUserRequestSchema,
-    controller: async (req: ValidatedRequest<any, PostUserRequest>, res) => {
+    action: async (req: ValidatedRequest<any, PostUserRequest>, res) => {
       const result = await usersService.create(req.validatedBody);
       res.status(HttpStatusCode.CREATED).json(result);
     },
@@ -30,10 +30,10 @@ router.post(
 
 router.put(
   '/:id',
-  controllerMw({
+  controller({
     config,
     bodySchema: putUserRequestSchema,
-    controller: async (
+    action: async (
       req: ValidatedRequest<any, PutUserRequest>,
       res: Response
     ) => {
@@ -48,9 +48,9 @@ router.put(
 
 router.delete(
   '/:id',
-  controllerMw({
+  controller({
     config,
-    controller: async (req: Request, res: Response) => {
+    action: async (req: Request, res: Response) => {
       const result = await usersService.remove(parseInt(req.params.id));
       res.status(HttpStatusCode.NO_CONTENT).json(result);
     },
@@ -59,9 +59,9 @@ router.delete(
 
 router.get(
   '/:id',
-  controllerMw({
+  controller({
     config,
-    controller: async (req, res) => {
+    action: async (req, res) => {
       const result = await usersService.read(parseInt(req.params.id));
       res.status(HttpStatusCode.OK).json(result);
     },
@@ -70,10 +70,10 @@ router.get(
 
 router.get(
   '/',
-  controllerMw({
+  controller({
     config,
     querySchema: filterRequestParamsSchema,
-    controller: async (
+    action: async (
       req: ValidatedRequest<any, any, FilterRequestParams>,
       res: Response
     ) => {

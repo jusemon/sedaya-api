@@ -15,7 +15,7 @@ type ControllerMiddlewareProps<
   Query = any
 > = ValidationMiddlewareProps<Params, Body, Query> & {
   config: Config;
-  controller: (
+  action: (
     req: ValidatedRequest<Params, Body, Query>,
     res: Response
   ) => PromiseLike<void> | void;
@@ -23,7 +23,7 @@ type ControllerMiddlewareProps<
 
 const controllerMiddleware =
   ({
-    controller,
+    action,
     bodySchema,
     paramsSchema,
     querySchema,
@@ -35,7 +35,7 @@ const controllerMiddleware =
       res,
       () => {
         const log = logger(config);
-        Promise.resolve(controller(req as ValidatedRequest, res))
+        Promise.resolve(action(req as ValidatedRequest, res))
           .then(() => next())
           .catch((error) => {
             const errorMap = (details: any) => ({

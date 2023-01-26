@@ -14,8 +14,31 @@ import {
 } from '../models/http';
 import HttpStatusCode from '../models/http-status-code';
 import rolesService from '../services/roles.service';
+
 const router = Router();
 
+/**
+ * @openapi
+ * /roles/:
+ *   post:
+ *     summary: Create a role
+ *     tags:
+ *       - roles
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       description: The role to update
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: *role-request-post-schema
+ *     responses:
+ *       201:
+ *         description: Role saved successfully
+ *         content:
+ *           application/json:
+ *             schema: *role-response-schema
+ */
 router.post(
   '/',
   controller({
@@ -28,6 +51,30 @@ router.post(
   })
 );
 
+/**
+ * @openapi
+ * /roles/{id}:
+ *   put:
+ *     summary: Update a role
+ *     tags:
+ *       - roles
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - *role-id
+ *     requestBody:
+ *       description: The role to update
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: *role-request-put-schema
+ *     responses:
+ *       200:
+ *         description: Role updated successfully
+ *         content:
+ *           application/json:
+ *             schema: *role-response-schema
+ */
 router.put(
   '/:id',
   controller({
@@ -46,6 +93,19 @@ router.put(
   })
 );
 
+/**
+ * @openapi
+ * /roles/{id}:
+ *   delete:
+ *     summary: Delete a role by given id
+ *     tags:
+ *       - roles
+ *     parameters:
+ *       - *role-id
+ *     responses:
+ *       204:
+ *         description: Role deleted successfully
+ */
 router.delete(
   '/:id',
   controller({
@@ -57,6 +117,19 @@ router.delete(
   })
 );
 
+/**
+ * @openapi
+ * /roles/{id}:
+ *   get:
+ *     summary: Get a role by given id
+ *     tags:
+ *       - roles
+ *     parameters:
+ *       - *role-id
+ *     responses:
+ *       200:
+ *         description: Role deleted successfully
+ */
 router.get(
   '/:id',
   controller({
@@ -68,6 +141,21 @@ router.get(
   })
 );
 
+/**
+ * @openapi
+ * /roles/:
+ *   get:
+ *     summary: Get a list of roles
+ *     tags:
+ *       - roles
+ *     parameters: *filter-request-params-schema
+ *     responses:
+ *       200:
+ *         description: Roles returned successfully
+ *         content:
+ *           application/json:
+ *             schema: *role-response-list-schema
+ */
 router.get(
   '/',
   controller({
@@ -78,7 +166,7 @@ router.get(
       res: Response
     ) => {
       const result = await rolesService.readAll(req.validatedQuery);
-      res.json(result);
+      res.status(HttpStatusCode.OK).json(result);
     },
   })
 );

@@ -14,8 +14,31 @@ import {
 } from '../models/http';
 import HttpStatusCode from '../models/http-status-code';
 import usersService from '../services/users.service';
+
 const router = Router();
 
+/**
+ * @openapi
+ * /users/:
+ *   post:
+ *     summary: Create an user
+ *     tags:
+ *       - users
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       description: The user to create
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: *user-request-post-schema
+ *     responses:
+ *       201:
+ *         description: User saved successfully
+ *         content:
+ *           application/json:
+ *             schema: *user-response-schema
+ */
 router.post(
   '/',
   controller({
@@ -28,6 +51,30 @@ router.post(
   })
 );
 
+/**
+ * @openapi
+ * /users/{id}:
+ *   put:
+ *     summary: Update an user
+ *     tags:
+ *       - users
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - *user-id
+ *     requestBody:
+ *       description: The user to update
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: *user-request-put-schema
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema: *user-response-schema
+ */
 router.put(
   '/:id',
   controller({
@@ -46,6 +93,19 @@ router.put(
   })
 );
 
+/**
+ * @openapi
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete a user by given id
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - *user-id
+ *     responses:
+ *       204:
+ *         description: User deleted successfully
+ */
 router.delete(
   '/:id',
   controller({
@@ -57,6 +117,19 @@ router.delete(
   })
 );
 
+/**
+ * @openapi
+ * /users/{id}:
+ *   get:
+ *     summary: Get a user by given id
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - *user-id
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ */
 router.get(
   '/:id',
   controller({
@@ -68,6 +141,21 @@ router.get(
   })
 );
 
+/**
+ * @openapi
+ * /users/:
+ *   get:
+ *     summary: Get a list of users
+ *     tags:
+ *       - users
+ *     parameters: *filter-request-params-schema
+ *     responses:
+ *       200:
+ *         description: Users returned successfully
+ *         content:
+ *           application/json:
+ *             schema: *user-response-list-schema
+ */
 router.get(
   '/',
   controller({

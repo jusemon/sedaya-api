@@ -12,6 +12,7 @@ const envSchema = joi
       .string()
       .allow('development', 'production', 'test')
       .required(),
+    npm_package_version: joi.string().required(),
   })
   .unknown()
   .required();
@@ -24,6 +25,7 @@ if (error) {
 export const config: Config = {
   env: envVars.NODE_ENV,
   isDevelopment: envVars.NODE_ENV === 'development',
+  packageVersion: envVars.npm_package_version,
   database,
-  server
+  server,
 };

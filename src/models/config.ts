@@ -15,6 +15,7 @@ export type ServerConfig = {
 export type Config = {
   env: string;
   isDevelopment: boolean;
+  packageVersion: string
   database: DatabaseConfig;
   server: ServerConfig;
 };

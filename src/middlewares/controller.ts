@@ -21,7 +21,7 @@ type ControllerMiddlewareProps<
   ) => PromiseLike<void> | void;
 };
 
-const controllerMiddleware =
+export const controllerMiddleware =
   ({
     action,
     bodySchema,

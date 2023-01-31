@@ -10,6 +10,6 @@ For run locally it needs a .env file with the environment variables defined in t
 ALLOWED_ORIGINS includes a comma separated list for the allowed CORS sites.
 
 Install dependencies `npm install` or `yarn`
-To start the project run `npm run serve` or `yarn serve`
+To start the project run `npm run dev` or `yarn dev`
 
 The database scripts are under the scripts folder, please run them in order.
